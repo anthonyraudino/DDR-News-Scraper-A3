@@ -24,11 +24,21 @@ jobs:
       - name: Run Scraper and Update JSON
         run: node scrapeNews.js
 
+      - name: Set Up SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
       - name: Commit and Push Changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git remote set-url origin "git@github.com:anthonyraudino/DDR-News-Scraper-A3.git"
           git checkout -b api
           git add -f news.json
           git commit -m "Update news.json"
-          git push origin api --force-with-lease=${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          git push origin api --force-with-lease
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

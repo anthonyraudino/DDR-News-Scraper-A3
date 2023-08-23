@@ -1,0 +1,34 @@
+name: Scrape News and Update API Branch
+
+on:
+  push:
+    branches:
+      - main  # Change this to the branch you want to trigger the workflow on
+
+jobs:
+  scrape_and_update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14  # You can adjust the version if needed
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Scraper and Update JSON
+        run: node scrapeNews.js
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout -b api
+          git add news.json
+          git commit -m "Update news.json"
+          git push origin api

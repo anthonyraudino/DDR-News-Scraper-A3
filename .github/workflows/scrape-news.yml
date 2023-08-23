@@ -1,4 +1,4 @@
-name: Generate and Push JSON
+name: Scrape News and Update API Branch
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main  # Change this to the branch you want to trigger the workflow on
 
 jobs:
-  generate_and_push:
+  scrape_and_update:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,14 +21,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Generate JSON
+      - name: Run Scraper and Update JSON
         run: node scrapeNews.js
 
       - name: Commit and Push Changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git checkout -b json-update
-          git add -A
-          git commit -m "Update JSON"
-          git push origin json-update
+          git checkout -b api
+          git add news.json
+          git commit -m "Update news.json"
+          git push origin api

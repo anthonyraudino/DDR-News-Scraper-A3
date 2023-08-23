@@ -22,14 +22,15 @@ jobs:
         run: npm install
 
       - name: Run Scraper and Update JSON
-        run: node scrapeNews.js
-
-      - name: Clean Up
         run: |
-          git clean -fxd  # Clean untracked files and directories
+          node scrapeNews.js
+          
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git checkout -b api
+          git rm -r --cached .
+          git reset -- news.json
+          git checkout -- news.json
           git add news.json
           git commit -m "Update news.json"
           git push origin api

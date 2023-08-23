@@ -24,8 +24,10 @@ jobs:
       - name: Run Scraper and Update JSON
         run: node scrapeNews.js
 
-      - name: Commit and Push Changes
+      - name: Clean Up
         run: |
+          rm -rf !(news.json)  # Remove all files except news.json
+          git clean -fxd  # Clean untracked files and directories
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git checkout -b api

@@ -29,6 +29,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git checkout -b api
-          git add news.json
+          git add -f news.json
           git commit -m "Update news.json"
-          git push origin api
+          git push origin api --force-with-lease=${{ secrets.PERSONAL_ACCESS_TOKEN }}

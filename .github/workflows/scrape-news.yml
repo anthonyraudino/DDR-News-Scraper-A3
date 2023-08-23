@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Generate JSON
-        run: node generateJson.js
+        run: node scrapeNews.js
 
       - name: Commit and Push Changes
         run: |

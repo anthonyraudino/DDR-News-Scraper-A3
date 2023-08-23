@@ -2,6 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
 
+// The link to the DDR A3 news page
 const URL = 'https://p.eagate.573.jp/game/ddr/ddra3/p/info/index.html';
 
 axios.get(URL)

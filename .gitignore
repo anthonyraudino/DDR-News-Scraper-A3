@@ -127,4 +127,3 @@ dist
 .pnp.*
 
 node_modules/
-news.json

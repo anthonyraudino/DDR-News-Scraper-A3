@@ -129,3 +129,4 @@ dist
 node_modules/
 otogemu-f391650107ac.json
 config.js
+google-api.json

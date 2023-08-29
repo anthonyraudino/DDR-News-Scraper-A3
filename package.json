@@ -1,7 +1,11 @@
 {
   "dependencies": {
+    "@google-cloud/translate": "^8.0.1",
+    "@octokit/rest": "^20.0.1",
     "axios": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "octokit": "^3.1.0",
+    "striptags": "^3.2.0"
   }
 }

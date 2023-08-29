@@ -11,7 +11,7 @@ const striptags = require('striptags'); // Import the striptags library
 
 // Google Cloud Translation API setup
 const translationClient = new TranslationServiceClient({
-  keyFilename: 'otogemu-f391650107ac.json',
+  keyFilename: 'google-api.json',
 });
 const sourceLanguageCode = 'ja'; // Source language (Japanese)
 const targetLanguageCode = 'en'; // Target language (English)

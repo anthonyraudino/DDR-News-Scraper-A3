@@ -3,6 +3,7 @@ name: Fetch DDR News
 on:
   schedule:
     - cron: "0 */6 * * *"  # Runs every 6 hours
+  workflow_dispatch:  # 👈 This allows manual triggering!
 
 jobs:
   scrape-news:

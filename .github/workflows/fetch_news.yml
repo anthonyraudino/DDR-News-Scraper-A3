@@ -1,0 +1,32 @@
+name: Fetch DDR News
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"  # Runs every 6 hours
+
+jobs:
+  scrape-news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set up Google API credentials
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          echo "$GOOGLE_API_KEY" > google-api.json
+          echo "Google API credentials set up."
+
+      - name: Run scraper
+        run: node scrapeNews.js
+
+      - name: Push News to Backend
+        env:
+          BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: node pushNews.js

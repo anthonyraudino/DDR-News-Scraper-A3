@@ -53,7 +53,10 @@ async function translateText(text) {
  * Scrape DDR News page.
  */
 async function scrapeNews(translate = true) {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+        headless: "new",
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      });
     const page = await browser.newPage();
     await page.goto(URL, { waitUntil: 'networkidle0' });
     await page.waitForSelector('.news_one', { timeout: 10000 });

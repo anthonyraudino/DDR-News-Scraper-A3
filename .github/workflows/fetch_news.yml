@@ -1,12 +1,12 @@
-name: Fetch DDR News
+name: Fetch and Push DDR News
 
 on:
   schedule:
     - cron: "0 */6 * * *"  # Runs every 6 hours
-  workflow_dispatch:  # 👈 This allows manual triggering!
+  workflow_dispatch:  # 👈 Allows manual triggering
 
 jobs:
-  scrape-news:
+  scrape-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,11 +16,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Puppeteer Dependencies  # 👈 This ensures Puppeteer can run
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2
-
       - name: Set up Google API credentials
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
@@ -28,11 +23,9 @@ jobs:
           echo "$GOOGLE_API_KEY" > google-api.json
           echo "Google API credentials set up."
 
-      - name: Run scraper
-        run: node scrapeNews.js
-
-      - name: Push News to Backend
+      - name: Scrape News and Push to Backend
         env:
           BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
+          BACKEND_API_URL_HASHES: ${{ secrets.BACKEND_API_URL_HASHES }}
           API_KEY: ${{ secrets.API_KEY }}
-        run: node pushNews.js
+        run: node scrapeNews.js

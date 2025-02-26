@@ -15,17 +15,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Set up Google API credentials
-        env:
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        run: |
-          echo "$GOOGLE_API_KEY" > google-api.json
-          echo "Google API credentials set up."
-
+        
       - name: Scrape News and Push to Backend
         env:
           BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
           BACKEND_API_URL_HASHES: ${{ secrets.BACKEND_API_URL_HASHES }}
           API_KEY: ${{ secrets.API_KEY }}
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
         run: node scrapeNews.js
